@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title}}{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}" />
+<a href="{% url 'postdisplay' %}">Back</a>
+<div class='post-container'>
+<h3>{{post.title}}</h3><br>
+<p>{{post.content}}</p><br>
+<span><a href="{% url 'otherprofiledisplay' id=post.profileid.id %}">{{post.profileid.name}}</a></span><br>
+<span class='age'>{{post.age}} ago</span><br>
+    {% load liketags %}
+    {% likefind post.like.id profile.id as like %}
+    {% dislikefind post.like.id profile.id as dislike %}
+    <div class='interaction'>
+        <div><input type='image' id="plike{{post.id}}" onclick = 'like("post",{{post.id}},"{% url "like" %}")' {% if like %} value="Liked" src="{% static 'images/liked.png' %}" {% else %} value="Like" src="{% static 'images/like.png' %}" {% endif %} > 
+        <span id ="plikecount{{post.id}}" >{{post.like.like}}</span> </div>
+        <div><input type='image' id="pdislike{{post.id}}" onclick = 'dislike("post",{{post.id}},"{% url "dislike" %}")' {% if dislike %}value="Disliked" src="{% static 'images/disliked.png' %}"{% else %}value="Dislike" src="{% static 'images/dislike.png' %}" {% endif %} > 
+        <span id = "pdislikecount{{post.id}}">{{post.like.dislike}}</span></div>
+        </div>
+<form action="{% url 'createcomment' id=post.id type='post' %}" method='POST'>
+    {% csrf_token %}
+    <input type = "text" name = "comment" autofocus required><button type = 'submit' name = "submit">Comment</button>
+</form>
+</div>
+<h5>Comments</h5>
+{% if comments %}
+{% for comment in comments %}
+<div class='post-container'>
+{% load liketags %}
+{% load commenttags %}
+    {% likefind comment.like.id profile.id as like %}
+    {% dislikefind comment.like.id profile.id as dislike %}
+<a href="{% url 'singlecomment' id=comment.id %}"><p>{{comment.content}}</p></a>
+<span><a href="{% url 'otherprofiledisplay' id=comment.profileid.id %}">{{comment.profileid.name}}</a></span><br>
+{% if comment.profileid.role == 'Expert' %}
+<strong>Expert</strong><br>
+{% endif %}
+<span class='age'>{{comment.age}} ago</span><br>
+<div class='interaction'>
+<div><input type='image' id="clike{{comment.id}}" onclick = 'like("comment",{{comment.id}},"{% url "like" %}")' {% if like %}value="Liked" src="{% static 'images/liked.png' %}" {% else %}value="Like" src="{% static 'images/like.png' %}"{% endif %}> 
+    <span id ="clikecount{{comment.id}}" >{{comment.like.like}}</span> 
+</div>
+    <div><input type='image' id="cdislike{{comment.id}}" onclick = 'dislike("comment",{{comment.id}},"{% url "dislike" %}")' {% if dislike %}value="Disliked" src="{% static 'images/disliked.png' %}"{% else %}value="Dislike" src="{% static 'images/dislike.png' %}" {% endif %}> 
+    <span id = "cdislikecount{{comment.id}}">{{comment.like.dislike}}</span>
+</div>
+    <div>
+        <form action='{% url 'singlecomment' id=comment.id %}' method = 'post'>
+            {% csrf_token %}
+            <input type="image" name = 'submit' src="{% static 'images/comment.png' %}" ><span>{% commentcount comment.id 'comment' %}</span>
+        </form>
+    </div>
+</div>
+</div>
+{% endfor %}
+ {% else %}
+ <span>wow, such empty</span>
+{% endif %}
+
+{% load static %}
+<script type="text/javascript" src="{% static 'js/likehandler.js' %}" ></script>
+{% endblock content %}

@@ -1,0 +1,22 @@
+<form action="" method="post">
+    <p>
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" id="id_name" [(ngModel)]="edit.name">
+    </p>
+    <p>
+        <label for="id_role">Role:</label>
+        <select name="role" id="id_role" [(ngModel)]="edit.role">
+            <option value="" selected=""></option>
+            <option value="Farmer">Farmer</option>
+            <option value="Vendor">Vendor</option>
+            <option value="Expert">Expert</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </p>
+    <p>
+        <label for="id_bio">Bio:</label>
+        <input type="text" name="bio" maxlength="255" id="id_bio" [(ngModel)]="edit.bio">
+    </p>
+    <button type="submit" value="submit" (click)="submit()">Edit</button>
+    <a (click)="location.back()">cancel</a>
+</form>

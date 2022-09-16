@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Requests{% endblock title %}
+{% block requests %}background: rgb(9, 151, 73);{% endblock requests %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}" />
+{% if reqs %}
+      {% for req in reqs %}
+      <div class='post-container'>
+        <pre>
+        User   : <a href="{% url 'otherprofiledisplay' id=req.profileid.id %}">{{req.profileid.credid.username}}</a><br>
+        Role   : {{req.role}}<br>
+        Reason : {{req.reason}}<br>
+      </pre>
+            <form action= "{% url 'requestapproval' id=req.id %}" method = 'post'>
+                {% csrf_token %}
+                <div class='interaction'>
+                 <div><button type="submit" id="accept" name="choice" value="APPROVED">Accept</button></div>
+                 <div><button type="submit" id="reject" name="choice" value="REJECTED">Reject</button></div>
+                </div>
+            </form>
+          
+    </div>
+      {% endfor %}
+  {% else %}
+  <p>No Pending Requests</p>
+  {% endif %}
+{% endblock content %}

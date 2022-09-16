@@ -1,0 +1,25 @@
+<div class='order'>
+
+    <p>Name : {{listing.name}}</p>
+    <p> Seller : <a [routerLink]="['/profile',listing.sellerid.id]">{{listing.sellerid.name}}</a>
+    </p>
+    <p>Price : {{listing.price}} /-</p>
+    <p>Balance : {{profile.money}} /-</p>
+
+    <p *ngIf="listing.price > profile.money"><span class='err'>insufficient balance</span>, please <a [routerLink]="['/addmoney/']">add</a>
+        money to purchase.
+    </p>
+    <div class='interaction'>
+        <div *ngIf="listing.price > profile.money"><button disabled>Confirm</button></div>
+        <div *ngIf="listing.price <= profile.money">
+            <form action="" method='POST'>
+                <button type='submit' name='status' value='ORDERED' (click)="confirm()">Confirm</button>
+            </form>
+        </div>
+        <div>
+            <form action="" method='POST'>
+                <button type='submit' name='status' value='CANCELLED' (click)="cancel()">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

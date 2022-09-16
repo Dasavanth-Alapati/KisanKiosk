@@ -1,0 +1,19 @@
+<div class='post-container'>
+    <h3>{{post.title}}</h3><br>
+    <p>{{post.content}}</p><br>
+    <span><a [routerLink]="['/profile',post.profileid.id]">{{post.profileid.name}}</a></span><br>
+    <span class='age'>{{base.age(post.created_at)}}</span><br>
+    <app-interactions [object] = post [type]="'post'" (reload)="ngOnInit()"></app-interactions>
+    
+</div>
+<h5>Comments</h5>
+<div class='post-container' *ngFor="let comment of post.comment">
+    <a [routerLink]="['/comment',comment.id]">
+        <p>{{comment.content}}</p>
+    </a>
+    <span><a [routerLink]="['/profile',comment.profileid.id]">{{comment.profileid.name}}</a></span><br>
+    <strong *ngIf="comment.profileid.role == 'Expert'">Expert</strong><br>
+    <span class='age'>{{base.age(comment.created_at)}}</span><br>
+    <app-interactions [object] = comment [type]="'comment'" (reload)="ngOnInit()"></app-interactions>
+</div>
+<span *ngIf="post.comment.length == 0">wow, such empty</span>

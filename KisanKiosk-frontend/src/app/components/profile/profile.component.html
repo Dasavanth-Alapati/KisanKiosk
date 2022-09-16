@@ -1,0 +1,18 @@
+
+<link rel="stylesheet" type="text/css" href="" />
+<figure class="snip0045 green">
+<a (click)="location.back()">Back</a><br>
+<a [routerLink]="['/editprofile']" *ngIf="base.id() == profile.id">Edit<img src= "/assets/images/edit.png"></a>
+
+    <figcaption>
+      <h2>{{profile.name}}</h2><h4>@{{profile.credid.username}}</h4>
+      <p>{{profile.bio}}</p>
+      <ng-container *ngIf="base.id() == profile.id" >
+      <p>Balance : Rs.{{profile.money}}/-</p><br>
+      <a [routerLink]="['/addmoney/']"><span>Add money</span></a>
+    </ng-container>
+    </figcaption>
+    <img src="{{pic}}" alt="'s profile pic"/>
+    <div class="position">{{profile.role}} </div>
+  </figure>
+

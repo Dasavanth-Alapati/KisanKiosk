@@ -1,0 +1,24 @@
+<div class="navbar">
+        <a [routerLink]="['/']" class="left">
+            <img src="/assets/images/logo.png" alt="Home" />
+        </a>
+        <div class="dropdown image" *ngIf = "baseservice.loggedIn()" >
+            <a routerLink="profile" class="right" routerLinkActive="selected"><img src="{{baseservice.pic()}}"></a>
+            <div class="dropdown-content image">
+              <a routerLink="profile">Profile</a>
+              <a routerLink="myorders">My Orders</a>
+              <a href="#" (click)="baseservice.logout()">Logout</a>
+            </div>
+          </div>
+        <div class="dropdown" *ngIf = "!baseservice.loggedIn()">
+            <a routerLink="/login" class="right">Login/SignUp</a>
+            <div class="dropdown-content">
+                <a routerLink="/login">Login</a>
+                <a routerLink="/signup">SignUp</a>
+            </div>
+        </div>
+        <a  class="right" routerLink="requests" *ngIf="baseservice.role() == 'Admin'" routerLinkActive="selected">Requests</a>
+        <a  class="right" routerLink="merchantorders" *ngIf="baseservice.role() == 'Vendor'" routerLinkActive="selected">Orders</a>
+        <a routerLink="marketplace" class="right" routerLinkActive="selected">Marketplace</a>
+        <a routerLink="feed" class="right" routerLinkActive="selected">Feed</a>
+    </div>

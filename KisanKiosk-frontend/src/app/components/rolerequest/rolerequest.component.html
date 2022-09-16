@@ -1,0 +1,5 @@
+<form action="" method="POST">
+    <h3>Role Request for <span>{{rolerequest.role}}</span> Role</h3>
+    <textarea name="reason" placeholder="please provide your info" autofocus="" [(ngModel)]="rolerequest.reason"></textarea>
+    <button type="submit" (click)="submit()">Submit</button>
+</form>

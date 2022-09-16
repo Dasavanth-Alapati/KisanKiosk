@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Marketplace{% endblock title %}
+{% block market %}background: rgb(9, 151, 73);{% endblock market %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/marketplace.css' %}" />
+<div class='marketplace-wrapper'>
+{% if name %}
+<div class='marketplace-container'>
+    {% for listing in listings %}
+    <div class='product-container'>
+
+        <a href='{% url 'singlelisting' id=listing.id %}'><h3>{{listing.name}}</h3></a><br>
+        <p>{{listing.description}}</span><br>
+        <h4>price:{{listing.price}} /- only</h4><br>
+        <p>by: <a href="{% url 'otherprofiledisplay' id=listing.sellerid.id %}">{{listing.sellerid.name}}</a></p>
+        {% if not listing.sellerid.id == profile.id %}
+        <form action = "{% url 'startorder' id=listing.id %}" method = 'POST'>
+            {% csrf_token %}
+        <button  type = 'submit'>Buy Now</button><br>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% if role == 'Vendor' %}
+<div class = 'create'>
+<a href='{% url 'createlisting' %}'><img src= "{% static 'images/create.png' %}" height='75' width='75'></a>
+</div> 
+{% endif %}
+</div>
+{% else %}
+    <span> please <a href="{% url 'login' %}">login</a> to view Marketplace</span>
+{% endif %}
+{% endblock content %}

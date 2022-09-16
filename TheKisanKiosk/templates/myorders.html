@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}My Orders{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}" />
+<h1>MY ORDERS</h1>
+{% if orders %}
+<div class='orders-container'>
+    {% for order in orders %}
+    <div class='order'>
+        <pre>
+        Name   :    {{order.listingid.name}}<br>
+        Seller :    <a href="{% url 'otherprofiledisplay' id=order.listingid.sellerid.id %}">{{order.listingid.sellerid.name}}</a><br>
+        Price  :    {{order.listingid.price}}<br>
+        Status :    {{order.status}}<br>
+        </pre >
+        <div class='interaction'>
+            <div>
+                {% if order.status == 'PENDING' %}
+                <form action="{% url 'continueorder' id=order.id %}" method = 'POST'>
+                    {% csrf_token %}
+                <button type = 'submit'>Buy now</button>
+                </form>
+                {% endif %}
+            </div>
+            <div>
+            {% if not order.status == 'CANCELLED' and not order.status == 'DELIVERED' %}
+            
+                <form action = "{% url 'orderstatus' id=order.id %}" method = 'POST'>
+                    {% csrf_token %}
+                <button type = 'submit' name = 'status' value='CANCELLED'>Cancel</button>
+                </form>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+No Order History
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,27 @@
+<div class='post-container'>
+    <h3>{{listing.name}}</h3>
+    <p>{{listing.description}}</p>
+    <h4>price:{{listing.price}} /- only</h4>
+    <span>by: <a [routerLink]="['/profile/',listing.sellerid.id]">{{listing.sellerid.name}}</a></span>
+    <div>
+        <div class='interaction'>
+            <div>
+                <button type='submit' (click)="base.order(listing.id)">Buy Now</button><br>
+            </div>
+        </div>
+        <app-interactions [object]="listing" [type]="'listing'" (reload)="ngOnInit()"></app-interactions>
+    </div>
+</div>
+
+<h5>Comments</h5>
+<div class='post-container' *ngFor="let comment of listing.comment">
+    <a [routerLink]="['/comment',comment.id]">
+        <p>{{comment.content}}</p>
+    </a><br>
+    <span><a [routerLink]="['/profile',comment.profileid.id]">{{comment.profileid.name}}</a></span><br>
+    <span><strong>Verified Buyer</strong></span><br>
+    <span class='age'>{{base.age(comment.created_at)}}</span>
+
+    <app-interactions [object]="comment" [type]="'comment'" (reload)="ngOnInit()"></app-interactions>
+</div>
+<span *ngIf="listing.comment.length == 0">wow, such empty</span>

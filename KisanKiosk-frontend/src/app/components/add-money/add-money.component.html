@@ -1,0 +1,9 @@
+<form action="" method="POST">
+    <h3>Add Money</h3>
+    <p>
+    <label for="id_amount">Amount:</label>
+    <input type="number" name="money" [(ngModel)]="money.money">
+  </p>
+    <button type="submit" (click)="add()">Add</button>
+    <a (click)="location.back()" >Cancel</a>
+</form>

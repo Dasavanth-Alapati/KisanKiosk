@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Create Listing{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/createlisting.css' %}" />
+<form action = '' method = 'POST'>
+    <h3>New Listing</h3>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type = 'submit' value='Create'>Create</button>
+</form>
+{% endblock content %}

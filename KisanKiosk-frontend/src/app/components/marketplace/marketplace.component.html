@@ -1,0 +1,22 @@
+<div class='marketplace-wrapper' *ngIf="base.loggedIn()">
+
+    <div class='marketplace-container'>
+        <div class='product-container' *ngFor="let listing of products">
+
+            <a [routerLink]="['listing/', listing.id]">
+                <h3>{{listing.name}}</h3>
+            </a><br>
+            <p>{{listing.description}}<br>
+            <h4>price:{{listing.price}} /- only</h4><br>
+            <p>by: <a [routerLink]="['/profile',listing.sellerid.id]">{{listing.sellerid.name}}</a></p>
+            <button type='submit' (click)="base.order(listing.id)">Buy Now</button><br>
+        </div>
+    </div>
+
+    <div class='create' *ngIf="base.role() == 'Vendor'">
+        <a [routerLink]="['/createlisting']"><img src="/assets/images/create.png" height='75' width='75'></a>
+    </div>
+
+</div>
+
+<span *ngIf="!base.loggedIn()"> please <a href="login">login</a> to view Marketplace</span>

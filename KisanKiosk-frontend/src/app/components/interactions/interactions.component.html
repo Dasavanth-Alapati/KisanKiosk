@@ -1,0 +1,20 @@
+<div class='interaction'>
+<div>
+    <button mat-icon-button (click)="reset(1)" ><img [src]="like" alt="like"></button>
+    <span>{{object.like.like}}</span>
+</div>
+<div>
+    <button mat-icon-button (click)="reset(-1)" ><img [src]="dislike" alt="dislike"></button>
+    <span>{{object.like.dislike}}</span>
+</div>
+<div  *ngIf="!isActive">
+    <button mat-icon-button (click)="isActive = true" ><img src="/assets/images/comment.png" alt="comment"></button>
+</div>
+</div>
+<form action="" method='POST' *ngIf="isActive">
+    <mat-form-field appearance="fill" class="comment" ><input matInput type="text" name="comment" [(ngModel)]="comment.comment" autofocus></mat-form-field>
+    <div class="interaction">
+    <div><button mat-button type='submit' (click)="commentsubmit()">Comment</button></div>
+    <div><button mat-button type='submit' (click)="isActive=false">Cancel</button></div>
+    </div>
+</form>

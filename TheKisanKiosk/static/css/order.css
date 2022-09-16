@@ -1,0 +1,53 @@
+.order{
+    background-color: rgba(4, 88, 42, 0.267);
+    padding: 2%;
+    margin: 3%;
+    width: 800px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 5px rgba(8, 7, 16, 0.6);
+}
+
+button{
+    background-color: rgb(4, 88, 42);
+    color: azure;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+button[disabled]{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+button:hover{
+    opacity: 0.8;
+}
+
+.interaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: wrap;  
+  }
+
+.order p{
+    padding: 1%;
+    font-size: 20px;
+}
+.err{
+    color: red;
+}
+.order a {
+    
+    text-decoration: none;
+    cursor: pointer;
+    
+}
+
+.order a:hover{
+    color:rgb(4, 88, 42);
+}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Role Request{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/rolerequest.css' %}" />
+
+<form action="" method = "POST">
+    <h3>Role Request for <span>{{rolereq}}</span> Role</h3>
+    {% csrf_token %}
+    <textarea name="reason" placeholder="please provide your info" autofocus></textarea>
+    <button type="submit">Submit</button>
+</form>
+{% endblock content %}

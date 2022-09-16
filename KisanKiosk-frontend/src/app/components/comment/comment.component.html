@@ -1,0 +1,28 @@
+<div class='post-container'>
+    <a [routerLink]="['/feed/post/',comment.postid.id]" *ngIf="comment.postid != null">
+        <h3>{{comment.postid.title}}</h3>
+    </a>
+    <a [routerLink]="['/marketplace/listing/',comment.listingid.id]" *ngIf="comment.listingid != null">
+        <h3>{{comment.listingid.name}}</h3>
+    </a>
+    <a [routerLink]="['/comment',comment.commentid.id]" *ngIf="comment.commentid != null">
+        <h3>{{comment.commentid.content}}</h3>
+    </a>
+</div>
+<div class='post-container'>
+    <p>{{comment.content}}</p>
+    <span><a [routerLink]="['/profile',comment.profileid.id]">{{comment.profileid.name}}</a></span><br>
+    <span class='age'>{{base.age(comment.created_at)}}</span><br>
+
+    <app-interactions [object]="comment" [type]="'comment'" (reload)="ngOnInit()"></app-interactions>
+</div>
+<h5>Comments</h5>
+<div class='post-container' *ngFor="let comment of comment.comment">
+    <a [routerLink]="['/comment',comment.id]">
+        <p>{{comment.content}}</p>
+    </a>
+    <span><a [routerLink]="['/profile',comment.profileid.id]">{{comment.profileid.name}}</a></span><br>
+    <span class='age'>{{base.age(comment.created_at)}}</span><br>
+    <app-interactions [object]="comment" [type]="'comment'" (reload)="ngOnInit()"></app-interactions>
+</div>
+<span *ngIf="comment.comment.length == 0">wow, such empty</span>

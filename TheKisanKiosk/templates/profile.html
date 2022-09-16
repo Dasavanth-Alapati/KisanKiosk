@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}{{prof.name}}'s Profile{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
+<figure class="snip0045 green">
+  <a href="{{request.META.HTTP_REFERER|escape}}">Back</a><br>
+  {% if prof.credid.username == profile.credid.username %}
+<a href="{% url 'profileedit' %}">Edit<img src= "{% static 'images/edit.png' %}"></a>
+{% endif %}
+    <figcaption>
+      <h2>{{prof.name}}<br><h4>@{{prof.credid.username}}</h4>
+      {% if prof.bio %}
+      <p>{{prof.bio}}</p>
+      {% else %}
+      <p>Add a bio</p>
+      {% endif %}
+      {% if prof.credid.username == profile.credid.username %}
+      <p>Balance : Rs.{{prof.money}}/-</p><br>
+      <a href="{% url 'addmoney' %}"><span>Add money</span></a>
+      {% endif %}
+    </figcaption>
+    <img src="{{profimage}}" alt="{{profname}}'s profile pic"/>
+    <div class="position">{{prof.role}} </div>
+
+  </figure>
+  {% endblock content %}

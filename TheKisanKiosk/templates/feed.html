@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Feed{% endblock title %}
+{% block feed %}background: rgb(9, 151, 73);{% endblock feed %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/feed.css' %}" />
+
+{% if name  %}
+   
+    {% if posts %}
+    <div class='feed-wrapper'>
+    <div class="feed-container">
+        {% for post in posts %}
+        <div class = 'post-container'>
+            <a href='{% url 'singlepost' id=post.id %}'><h3>{{post.title}}</h3></a>
+            <p>{{post.content}}</p>
+            <span><a href="{% url 'otherprofiledisplay' id=post.profileid.id %}">{{post.profileid.name}}</a></span><br>
+            <span class='age'>{{post.age}} ago</span><br>
+            {% load liketags %}
+            {% load commenttags %}
+            {% likefind post.like.id profile.id as like %}
+            {% dislikefind post.like.id profile.id as dislike %}
+            <div class='interaction'>
+                <div><input type='image' id="plike{{post.id}}" onclick = 'like("post",{{post.id}},"{% url "like" %}")' {% if like %} value="Liked" src="{% static 'images/liked.png' %}" {% else %} value="Like" src="{% static 'images/like.png' %}" {% endif %} > 
+                    <span id ="plikecount{{post.id}}" >{{post.like.like}}</span> 
+                </div>
+                <div>
+                    <input type='image' id="pdislike{{post.id}}" onclick = 'dislike("post",{{post.id}},"{% url "dislike" %}")' {% if dislike %}value="Disliked" src="{% static 'images/disliked.png' %}"{% else %}value="Dislike" src="{% static 'images/dislike.png' %}" {% endif %} > 
+                    <span id = "pdislikecount{{post.id}}">{{post.like.dislike}}</span>
+                </div>
+                <div>
+                    <form action='{% url 'singlepost' id=post.id %}' method = 'post'>
+                        {% csrf_token %}
+                        <input type="image" name = 'submit' src="{% static 'images/comment.png' %}" ><span>{% commentcount post.id 'post' %}</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="create">
+        <a href="{% url 'createpost' %}"><img src= "{% static 'images/create.png' %}" height='75' width='75'></a>
+    </div>
+</div>
+    {% else %}
+        <p>No Posts to display</p>
+    {% endif %}
+{% else %}
+    <span> please <a href="{% url 'login' %}">login</a> to view posts</span>
+{% endif %}
+<script type="text/javascript" src="{% static 'js/likehandler.js' %}" ></script>
+{% endblock content %}

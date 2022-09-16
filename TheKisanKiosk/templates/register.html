@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
+<form action='' method = 'POST' enctype="multipart/form-data">
+    <h3>REGISTER</h3>
+    {% csrf_token %}
+    {{creds.as_p}}
+    {{deets.as_p}}
+    <label>Profile Pic:</label>
+    <input class ="image" type="file" name="profilepic">
+    <span class="err">{{err}}</span>
+    <button type='submit' value = 'SignUp'>SignUp</button>
+</form>
+{% endblock content %}

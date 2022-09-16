@@ -1,0 +1,16 @@
+<div class='post-container' *ngFor="let req of reqs">
+    <pre>
+        User   : <a [routerLink]="['/profile',req.profileid.id]">{{req.profileid.credid.username}}</a><br>
+        Role   : {{req.role}}<br>
+        Reason : {{req.reason}}<br>
+      </pre>
+    <form action="" method='post'>
+        <div class='interaction'>
+            <div><button type="submit" id="accept" name="choice" value="APPROVED" (click)="roleaction(req.id,true)">Accept</button></div>
+            <div><button type="submit" id="reject" name="choice" value="REJECTED" (click)="roleaction(req.id,false)">Reject</button></div>
+        </div>
+    </form>
+</div>
+<div *ngIf="reqs.length == 0">
+    <p><strong>No Pending Requests</strong></p>
+</div>

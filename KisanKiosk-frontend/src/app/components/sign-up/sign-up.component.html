@@ -1,0 +1,31 @@
+<form action='' method='POST' enctype="multipart/form-data" (ngSubmit)="signup()" [formGroup]="Signup">
+    <h3>REGISTER</h3>
+    <label for="username">Username:</label>
+    <input type="text" formControlName="username" autofocus class="form-control">
+    <span *ngIf="Signup.controls['username'].hasError('required') && (clicked || Signup.controls['username'].touched)"
+        class="err">Username is required</span>
+    <span *ngIf="Signup.controls['username'].hasError('alreadyExists')" class="err">Username already exists</span>
+    <span *ngIf="Signup.controls['username'].pending">Validating...</span>
+    <span *ngIf="(Signup.controls['username'].hasError('minlength'))" class="err">Username should be atleast 5
+        charecters</span>
+    <label for="password">Password:</label>
+    <input type="password" formControlName="password" class="form-control">
+    <span *ngIf="Signup.controls['password'].errors && (clicked ||  Signup.controls['password'].touched)"
+        class="err">Password is required</span>
+    <label for="name">Name:</label>
+    <input type="text" formControlName="name" class="form-control">
+    <span *ngIf="(Signup.controls['name'].hasError('required') && (clicked ||  Signup.controls['name'].touched))"
+        class="err">Name is required</span>
+    <span *ngIf="(Signup.controls['name'].hasError('minlength'))" class="err">Name should be atleast 5 charecters</span>
+    <label for="role">Role:</label>
+    <select formControlName="role" class="form-control">
+        <option value="Admin">Admin</option>
+        <option value="Vendor">Vendor</option>
+        <option value="Expert">Expert</option>
+        <option value="Farmer" selected>Farmer</option>
+    </select>
+    <label>Profile Pic:</label>
+    <input class="image" type="file" name="profilepic">
+    <span class="err"></span>
+    <button type='submit' value='SignUp'>SignUp</button>
+</form>

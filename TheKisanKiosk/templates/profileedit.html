@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Edit profile{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
+<form action = '' method='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type = "submit" value = "submit">Edit</button>
+    <a href="{% url 'profiledisplay' %}">cancel</a>
+</form>
+
+{% endblock content %}

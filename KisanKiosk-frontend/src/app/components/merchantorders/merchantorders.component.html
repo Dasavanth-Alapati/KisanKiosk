@@ -1,0 +1,19 @@
+<div class='orders-container'>
+<div class='order' *ngFor="let order of orders">
+    <pre>
+Name   :   {{order.listingid.name}}<br>
+Buyer  :   <a [routerLink]="['/profile',order.buyerid.id]">{{order.buyerid.name}}</a><br>
+Price  :   {{order.listingid.price}}<br>
+Status :   {{order.status}}<br>
+    </pre>
+<form action="" method = 'POST' *ngIf="order.status !== 'DELIVERED'">
+    <select name = 'status' [(ngModel)]="status">
+        <option value = ''></option>
+        <option value = 'IN_TRANSIT' *ngIf="order.status !== 'IN_TRANSIT'">On the Way</option>
+        <option value = 'DELIVERED'>Delivered</option>
+    </select>
+    <input type='submit' (click)="base.orderUpdate(order.id,status)">
+</form>
+</div>
+</div>
+

@@ -1,0 +1,22 @@
+<h1>MY ORDERS</h1>
+<div class='orders-container'>
+    <div class='order' *ngFor="let order of orders">
+        <pre>
+        Name   :    {{order.listingid.name}}<br>
+        Seller :    <a [routerLink]="['/profile',order.listingid.sellerid.id]">{{order.listingid.sellerid.name}}</a><br>
+        Price  :    {{order.listingid.price}}<br>
+        Status :    {{order.status}}<br>
+        </pre>
+        <div class='interaction'>
+            <div>
+                <form action="" method='POST' *ngIf="order.status == 'PENDING'">
+                    <button type='submit'>Buy now</button>
+                </form>
+            </div>
+            <div *ngIf="order.status !== 'DELIVERED'">
+                <button type='submit' name='status' (click)="base.orderUpdate(order.id,'CANCELLED')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>

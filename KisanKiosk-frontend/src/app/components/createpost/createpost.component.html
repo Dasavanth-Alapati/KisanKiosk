@@ -1,0 +1,12 @@
+<form action= " " method = "post">
+    <h3>New Post</h3>
+    <p>
+        <label>Title:</label>
+        <input type="text" name="title" autofocus [(ngModel)]="post.title">
+    </p>
+    <p>
+        <label for="id_content">Content:</label>
+        <textarea name="content" cols="40" rows="10" maxlength="2000" required="" id="id_content" [(ngModel)]="post.content"></textarea>
+    </p>
+    <button type = 'submit' value="create post" (click)="createpost()">Create</button>
+</form>

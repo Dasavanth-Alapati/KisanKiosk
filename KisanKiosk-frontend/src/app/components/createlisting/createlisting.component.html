@@ -1,0 +1,16 @@
+<form action="" method="POST" [formGroup]="listingform" (ngSubmit)="createlisting()">
+    <h3>New Listing</h3>
+    <p>
+        <label for="id_name">Name:</label>
+        <input type="text" formControlName="name" autofocus="" maxlength="255" required="" id="id_name">
+    </p>
+    <p>
+        <label for="id_description">Description:</label>
+        <textarea formControlName="description" cols="40" rows="10" maxlength="1000" id="id_description"></textarea>
+    </p>
+    <p>
+        <label for="id_price">Price:</label>
+        <input type="number" formControlName="price" step="any" required="" id="id_price">
+    </p>
+    <button type="submit" value="Create" >Create</button>
+</form>

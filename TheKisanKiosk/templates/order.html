@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Order details{% endblock title %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/order.css' %}" />
+<div class='order'>
+    
+    <p>Name&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp{{order.listingid.name}}</p>
+    <p> Seller&nbsp&nbsp&nbsp&nbsp:&nbsp<a href="{% url 'otherprofiledisplay' id=order.listingid.sellerid.id %}">{{order.listingid.sellerid.name}}</a></p>
+    <p>Price&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp{{order.listingid.price}}</p>
+    <p>Balance&nbsp:&nbsp{{profile.money}}</p>
+    
+    
+    {% if order.listingid.price > profile.money %}
+    <p><span class='err'>insufficient balance</span>, please <a href="{% url 'addmoney' %}">add</a> money to purchase.</p>
+    <div class='interaction'>
+    <div><button disabled>Confirm</button></div>
+    {% else %} 
+    <div class='interaction'>   
+        <div>
+            <form action = "{% url 'orderstatus' id=order.id %}" method = 'POST'>
+                {% csrf_token %}
+            <button type = 'submit' name = 'status' value = 'ORDERED'>Confirm</button>
+            </form>
+        </div>
+        {% endif %}
+        <div>
+            <form action = "{% url 'orderstatus' id=order.id %}" method = 'POST'>
+                {% csrf_token %}
+            <button type = 'submit' name = 'status' value  ='CANCELLED'>Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

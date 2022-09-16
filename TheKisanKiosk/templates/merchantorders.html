@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Merchant Orders{% endblock title %}
+{% block order %}background: rgb(9, 151, 73);{% endblock order %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}" />
+<div class='orders-container'>
+{% for order in orders %}
+<div class='order'>
+    <pre>
+Name   :   {{order.listingid.name}}<br>
+Buyer  :   <a href="{% url 'otherprofiledisplay' id=order.buyerid.id %}">{{order.buyerid.name}}</a><br>
+Price  :   {{order.listingid.price}}<br>
+Status :   {{order.status}}<br>
+    </pre>
+{% if not order.status == 'DELIVERED'%}
+<form action="{% url 'orderstatus' id=order.id %}" method = 'POST'>
+    {% csrf_token %}    
+    <select name = 'status'>
+        <option value = ''></option>
+        <option value = 'IN_TRANSIT'>On the Way</option>
+        <option value = 'DELIVERED'>Delivered</option>
+    </select>
+    <input type='submit' value = 'Change Status'>
+</form>
+{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock content %}

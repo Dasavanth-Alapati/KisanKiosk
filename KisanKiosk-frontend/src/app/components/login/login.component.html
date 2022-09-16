@@ -1,0 +1,15 @@
+<div class = "login submit-form">
+<form action='' method = 'POST' [formGroup]="loginform" (ngSubmit)="login()">
+    <h3>LOGIN</h3>  
+    <label for="username">UserName:</label>
+    <input type="text" formControlName="username" required>
+    <span *ngIf="loginform.controls['username'].hasError('required') && (clicked || loginform.controls['username'].touched)" class="err">Username is required</span>
+    <label for="username">Password:</label>
+    <input type="password" formControlName="password" required>
+    <span *ngIf="loginform.controls['password'].hasError('required') && (clicked || loginform.controls['password'].touched)" class="err">Password is required</span>
+    <span *ngIf="unauth" class="err">Username or Password is invalid</span>
+    <button type="submit" value = "Login">Login</button>
+    <p class = 'para'>Don't have an account?<a href="signup">SignUp</a></p>
+</form>
+</div>
+
